@@ -11,7 +11,7 @@ def drawCircleTurtle(x, y, r):
         turtle.setpos(x + r*math.cos(a), y + r*math.sin(a))
 
 
-drawCircleTurtle(100,100,500)
+drawCircleTurtle(100,100,100)
 turtle.mainloop()
 
 # git test
