@@ -1,5 +1,11 @@
+import sys, random, argparse
+import numpy as np
 import math
 import turtle
+import random
+from PIL import image
+from datetime import datetime
+from fractions import gcd
 
 def drawCircleTurtle(x, y, r):
     turtle.up()
@@ -31,5 +37,13 @@ class Spiro:
 
         self.restart()
 
-    def setParams(self. cx, yc, col, R, r, l):
+    def setParams(self, cx, yc, col, R, r, l):
         self.xc = xc
+        self.yc = yc
+        self.R - int(R)
+        self.r = int(r)
+        self.l = l
+        self.col = col
+
+        # reduce r/R to its smalles form by dividing with the GCD
+        gcdVal = gcd(self.r, self.R)
