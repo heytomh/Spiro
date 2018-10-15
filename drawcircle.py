@@ -5,7 +5,6 @@ import turtle
 import random
 from PIL import image
 from datetime import datetime
-from fractions import gcd
 
 def drawCircleTurtle(x, y, r):
     turtle.up()
@@ -46,4 +45,20 @@ class Spiro:
         self.col = col
 
         # reduce r/R to its smalles form by dividing with the GCD
-        gcdVal = gcd(self.r, self.R)
+        gcdVal = math.gcd(self.r, self.R)
+        self.nRot = self.r//gcdVal
+        self.k = r/float(R)
+        self.t.color(*col)
+        self.a = 0
+
+    def restart(self):
+        self.drawingComplete = False
+        self.t.showturtle()
+        self.t.up()
+        R, k, l = self.R, self.k,  self.l
+        a = 0
+        x = R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
+        y = R*((1-k)*math.sin(a) + l*k*math.sin((1-k)*a/k))
+        self.t.setpos(self.xc + x, self.yc + y)
+
+
