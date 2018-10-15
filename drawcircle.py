@@ -17,3 +17,19 @@ turtle.mainloop()
 # git test
 # git test 2
 # git test 3
+
+# a class that draws a Sprograph
+class Spiro:
+    # Constructor
+    def __init__(self, xc, yc, col, R, r, l):
+        self.t = turtle.Turtle()
+        self.t.shape('turtle')
+        self.step = 5
+        self.drawingComplete = False
+
+        self.setparams(xc, yc, col, R, r, l)
+
+        self.restart()
+
+    def setParams(self. cx, yc, col, R, r, l):
+        self.xc = xc
