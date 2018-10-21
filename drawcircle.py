@@ -6,18 +6,18 @@ import random
 from PIL import image
 from datetime import datetime
 
-def drawCircleTurtle(x, y, r):
-    turtle.up()
-    turtle.setpos(x+r, y)
-    turtle.down()
-
-    for i in range (0, 365, 1):
-        a = math.radians(i)
-        turtle.setpos(x + r*math.cos(a), y + r*math.sin(a))
-
-
-drawCircleTurtle(100,100,100)
-turtle.mainloop()
+# def drawCircleTurtle(x, y, r):
+#     turtle.Turtle().up()
+#     turtle.Turtle().setpos(x+r, y)
+#     turtle.Turtle().down()
+#
+#     for i in range (0, 365, 1):
+#         a = math.radians(i)
+#         turtle.Turtle.setpos(x + r*math.cos(a), y + r*math.sin(a))
+#
+#
+# drawCircleTurtle(100,100,100)
+# turtle.Screen().mainloop()
 
 # git test
 # git test 2
@@ -32,7 +32,7 @@ class Spiro:
         self.step = 5
         self.drawingComplete = False
 
-        self.setparams(xc, yc, col, R, r, l)
+        self.setParams(xc, yc, col, R, r, l)
 
         self.restart()
 
@@ -83,4 +83,30 @@ class Spiro:
         if self.a >= 360*self.nRot:
             self.drawingComplete = True
             self.t.hideturtle()
+
+class SpiroAnimator:
+    def __init__(self, N):
+        self.deltaT = 10
+        # get the window dimensions
+        self.width = turtle.Screen().window_width()
+        self.height = turtle.Screen().window_height()
+        self.spiros = []
+        for i in range(N):
+            rparams = self.genRandomParams()
+            spiro = Spiro(*rparams)
+            self.spiros.append(spiro)
+            turtle.ontimer(self.update, self.deltaT)
+
+    def genRandomParams(self):
+        width, height = self.width, self.height
+        R = random.randint(50, min(width, height)//2)
+        r = random.randint(10, 9*R//10)
+        l = random.uniform(0.1, 0.9)
+        xc = random.randint(-width//2, width//2)
+        yc = random.randint(-height//2, height//2)
+        col = (random.random(),
+               random.random(),
+               random.random())
+        return (xc, yc, col, R, r, l)
+
 
