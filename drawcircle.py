@@ -109,4 +109,3 @@ class SpiroAnimator:
                random.random())
         return (xc, yc, col, R, r, l)
 
-#test
