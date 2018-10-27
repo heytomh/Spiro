@@ -109,3 +109,38 @@ class SpiroAnimator:
                random.random())
         return (xc, yc, col, R, r, l)
 
+    def restart(self):
+        spiro.clear()
+        rparams = self.genRandomParams()
+        spiro.setParams(*rparams)
+        spiro.restart()
+
+    def update(self):
+        nComplete = 0
+        for spiro in selt.spiros:
+            spiro.update()
+            if spiro.drawingComplete:
+                nComplete += 1
+        if nComplete == len(self.spiros):
+            self.restart()
+        turtle.ontimer(self.update, self.deltaT)
+
+    def toggleTurtles(self):
+        for spiro in self.spiros:
+            if spiro.t.isvisible():
+                spiro.t.hideturtle()
+            else:
+                spiro.t.showturtle()
+
+    def saveDrawing():
+        turtle.hideturtle()
+        dateStr = (datetime.now()).strftime("%d%b%Y-%H%M%S")
+        fileName = 'spiro-' + dateStr
+        print('saving drawing to %s.eps/png' % filename)
+        canvas = turtle.getcanvas()
+        canvas.postscript(file = fileName + '.eps')
+        img = Image.open(fileName + 'eps')
+        img.save(fileName + '.png', 'png')
+        turtle.showturtle()
+
+#hmmm
