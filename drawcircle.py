@@ -8,24 +8,9 @@ import random
 from PIL import Image
 from datetime import datetime
 
-# def drawCircleTurtle(x, y, r):
-#     turtle.Turtle().up()
-#     turtle.Turtle().setpos(x+r, y)
-#     turtle.Turtle().down()
-#
-#     for i in range (0, 365, 1):
-#         a = math.radians(i)
-#         turtle.Turtle.setpos(x + r*math.cos(a), y + r*math.sin(a))
-#
-#
-# drawCircleTurtle(100,100,100)
-# turtle.Screen().mainloop()
-
-# git test
-# git test 2
-# git test 3
-
 # a class that draws a Sprograph
+
+
 class Spiro:
     # Constructor
     def __init__(self, xc, yc, col, R, r, l):
@@ -34,14 +19,14 @@ class Spiro:
         self.step = 5
         self.drawingComplete = False
 
-        self.setParams(xc, yc, col, R, r, l)
+        self.setparams(xc, yc, col, R, r, l)
 
         self.restart()
 
-    def setParams(self, cx, yc, col, R, r, l):
+    def setparams(self, xc, yc, col, R, r, l):
         self.xc = xc
         self.yc = yc
-        self.R - int(R)
+        self.R = int(R)
         self.r = int(r)
         self.l = l
         self.col = col
@@ -86,6 +71,7 @@ class Spiro:
             self.drawingComplete = True
             self.t.hideturtle()
 
+
 class SpiroAnimator:
     def __init__(self, N):
         self.deltaT = 10
@@ -119,7 +105,7 @@ class SpiroAnimator:
 
     def update(self):
         nComplete = 0
-        for spiro in selt.spiros:
+        for spiro in self.spiros:
             spiro.update()
             if spiro.drawingComplete:
                 nComplete += 1
@@ -134,42 +120,49 @@ class SpiroAnimator:
             else:
                 spiro.t.showturtle()
 
-    def saveDrawing():
-        turtle.hideturtle()
-        dateStr = (datetime.now()).strftime("%d%b%Y-%H%M%S")
-        fileName = 'spiro-' + dateStr
-        print('saving drawing to %s.eps/png' % filename)
-        canvas = turtle.getcanvas()
-        canvas.postscript(file = fileName + '.eps')
-        img = Image.open(fileName + 'eps')
-        img.save(fileName + '.png', 'png')
-        turtle.showturtle()
+def saveDrawing():
+    turtle.hideturtle()
+    dateStr = (datetime.now()).strftime("%d%b%Y-%H%M%S")
+    fileName = 'spiro-' + dateStr
+    print('saving drawing to %s.eps/png' % filename)
+    canvas = turtle.getcanvas()
+    canvas.postscript(file = fileName + '.eps')
+    img = Image.open(fileName + 'eps')
+    img.save(fileName + '.png', 'png')
+    turtle.showturtle()
 
-    def main():
-        parser = argparse.ArgumentParser(description=descStr)
-        parser.add_argument('--sparams',
-                            nargs=3,
-                            dest='sparams',
-                            required=False,
-                            help='The three arguments in sparams: R, r, l.')
-        args = parser.parse_args()
+def main():
+    print('generating spirograph...')
+    descStr = """ Yo - this is a description
+    can you believe it
+    """
+    parser = argparse.ArgumentParser(description=descStr)
+    parser.add_argument('--sparams',
+                        nargs=3,
+                        dest='sparams',
+                        required=False,
+                        help='The three arguments in sparams: R, r, l.')
+    args = parser.parse_args()
 
-        # set up the screen width
-        turtle.setup(width=0.8)
-        turtle.shape('turtle')
-        turtle.title("Spirographs!")
-        turtle.onkey(saveDrawing, "s")
-        turtle.listen()
-        turtle.hideturtle()
+    # set up the screen width
+    turtle.setup(width=0.8)
+    turtle.shape('turtle')
+    turtle.title("Spirographs!")
+    #turtle.onkey(saveDrawing(), "s")
+    turtle.listen()
+    turtle.hideturtle()
 
-        if args.sparams:
-            params = [float(x) for x in args.sparams]
-            col = (0.0, 0.0, 0.0)
-            spiro = Spiro(0, 0, col, *params)
-            spiro.draw()
-        else:
-            spiroAnim = SpiroAnimator(4)
-            turtle.onkey(spiroAnim.toggleTurtles, "t")
-            turtle.onkey(spiroAnim.restart, "space")
+    if args.sparams:
+        params = [float(x) for x in args.sparams]
+        col = (0.0, 0.0, 0.0)
+        spiro = Spiro(0, 0, col, *params)
+        spiro.draw()
+    else:
+        spiroAnim = SpiroAnimator(4)
+        turtle.onkey(spiroAnim.toggleTurtles, "t")
+        turtle.onkey(spiroAnim.restart, "space")
 
-        turtle.mainloop()
+    turtle.mainloop()
+
+if __name__ == '__main__':
+    main()
