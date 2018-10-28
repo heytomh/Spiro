@@ -3,7 +3,7 @@ import numpy as np
 import math
 import turtle
 import random
-from PIL import image
+from PIL import Image
 from datetime import datetime
 
 # def drawCircleTurtle(x, y, r):
@@ -143,4 +143,3 @@ class SpiroAnimator:
         img.save(fileName + '.png', 'png')
         turtle.showturtle()
 
-#hmmm
