@@ -1,4 +1,6 @@
-import sys, random, argparse
+import sys
+import random
+import argparse
 import numpy as np
 import math
 import turtle
@@ -143,3 +145,31 @@ class SpiroAnimator:
         img.save(fileName + '.png', 'png')
         turtle.showturtle()
 
+    def main():
+        parser = argparse.ArgumentParser(description=descStr)
+        parser.add_argument('--sparams',
+                            nargs=3,
+                            dest='sparams',
+                            required=False,
+                            help='The three arguments in sparams: R, r, l.')
+        args = parser.parse_args()
+
+        # set up the screen width
+        turtle.setup(width=0.8)
+        turtle.shape('turtle')
+        turtle.title("Spirographs!")
+        turtle.onkey(saveDrawing, "s")
+        turtle.listen()
+        turtle.hideturtle()
+
+        if args.sparams:
+            params = [float(x) for x in args.sparams]
+            col = (0.0, 0.0, 0.0)
+            spiro = Spiro(0, 0, col, *params)
+            spiro.draw()
+        else:
+            spiroAnim = SpiroAnimator(4)
+            turtle.onkey(spiroAnim.toggleTurtles, "t")
+            turtle.onkey(spiroAnim.restart, "space")
+
+        turtle.mainloop()
